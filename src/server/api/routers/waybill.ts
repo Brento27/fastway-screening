@@ -31,7 +31,7 @@ export interface ParcelData {
   CompanyInfo: CompanyInfo;
   UploadDate: string;
   Signature: string;
-  ParcelConnectAgent: any | null; // Assuming this can be any type or null
+  ParcelConnectAgent: string | null; // Assuming this can be any type or null
 }
 
 export const waybillRouter = createTRPCRouter({
@@ -49,16 +49,19 @@ export const waybillRouter = createTRPCRouter({
             message: `Failed to fetch data: ${res.statusText}`,
           });
         }
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const parcelData = await res.json();
-        console.log(parcelData);
 
-        if (parcelData.error) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        if (parcelData?.error) {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
-            message: parcelData.error,
+            // eslint-disable-next-line
+            message: parcelData?.error,
           });
         }
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         return parcelData?.result?.Scans as ParcelData[];
       } catch (error) {
         if (error instanceof TRPCError) {

@@ -1,18 +1,11 @@
 "use client";
-import {
-  BellRing,
-  Check,
-  PackageCheck,
-  PackageOpen,
-  Truck,
-} from "lucide-react";
+import { PackageCheck, PackageOpen, Truck } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/app/_components/ui/card";
