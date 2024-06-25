@@ -23,6 +23,8 @@ import { useRouter } from "next/navigation";
 import { Skeleton } from "./_components/ui/skeleton";
 import { motion } from "framer-motion";
 import { Suspense } from "react";
+import ParcelDataLoader from "./_components/ui/custom/ParcelDataLoader";
+import ParcelDataCardList from "./_components/ui/custom/ParcelDataCardList";
 
 const Home = () => {
   const { toast } = useToast();
@@ -45,6 +47,7 @@ const Home = () => {
     },
   });
 
+  const formValues = form.watch();
   const { data, isPending, mutate } = api.waybill.getWaybill.useMutation({
     onSuccess: () => {
       console.log("success");
@@ -86,7 +89,7 @@ const Home = () => {
                       <Input
                         placeholder="Tracking Number"
                         {...field}
-                        className="w-56 md:w-72 lg:w-96 "
+                        className="w-56 bg-white md:w-72 lg:w-96"
                       />
                     </FormControl>
                     <FormDescription>
@@ -106,58 +109,20 @@ const Home = () => {
           </Form>
         </div>
         <div className=" mt-4 flex flex-col gap-4">
-          {isPending ? (
-            <>
-              <Skeleton className="h-36 w-80  bg-slate-300 md:w-96 lg:w-[380px]" />
-              <Skeleton className="h-36 w-80 bg-slate-300 md:w-96 lg:w-[380px]" />
-              <Skeleton className="h-36 w-80 bg-slate-300 md:w-96 lg:w-[380px]" />
-              <Skeleton className="h-36 w-80 bg-slate-300 md:w-96 lg:w-[380px]" />
-            </>
-          ) : isFetching && searchParams.get("waybill") ? (
-            <>
-              <Skeleton className="h-36 w-80 bg-slate-300 md:w-96 lg:w-[380px]" />
-              <Skeleton className="h-36 w-80 bg-slate-300 md:w-96 lg:w-[380px]" />
-              <Skeleton className="h-36 w-80 bg-slate-300 md:w-96 lg:w-[380px]" />
-              <Skeleton className="h-36 w-80 bg-slate-300 md:w-96 lg:w-[380px]" />
-            </>
+          {isPending || (isFetching && searchParams.get("waybill")) ? (
+            <ParcelDataLoader
+              waybill={searchParams.get("waybill") ?? formValues.waybill}
+            />
           ) : data ? (
-            waybillQueryData?.map((scan, i) => {
-              return (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, translateX: -150 }}
-                  animate={{ opacity: 1, translateX: 0 }}
-                  transition={{ duration: 0.3, delay: i * 0.2 }}
-                >
-                  <ScannedWaybillDataCard
-                    key={i}
-                    scanType={scan.Type}
-                    date={scan.Date}
-                    description={scan.StatusDescription}
-                    location={scan.Name}
-                  />
-                </motion.div>
-              );
-            })
+            <ParcelDataCardList
+              data={data}
+              waybill={searchParams.get("waybill") ?? formValues.waybill}
+            />
           ) : (
-            waybillQueryData?.map((scan, i) => {
-              return (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, translateX: -150 }}
-                  animate={{ opacity: 1, translateX: 0 }}
-                  transition={{ duration: 0.3, delay: i * 0.2 }}
-                >
-                  <ScannedWaybillDataCard
-                    key={i}
-                    scanType={scan.Type}
-                    date={scan.Date}
-                    description={scan.StatusDescription}
-                    location={scan.Name}
-                  />
-                </motion.div>
-              );
-            })
+            <ParcelDataCardList
+              data={waybillQueryData}
+              waybill={searchParams.get("waybill") ?? formValues.waybill}
+            />
           )}
         </div>
       </main>
