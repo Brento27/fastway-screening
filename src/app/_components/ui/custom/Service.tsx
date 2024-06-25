@@ -39,7 +39,7 @@ const Service = ({
               <TableHead className="w-[150px]">
                 {service.type === "Satchel" ? "Satchel size" : "Label colour"}
               </TableHead>
-              <TableHead>Price (Excl VAT)</TableHead>
+              <TableHead className="w-[200px]">Price (Excl VAT)</TableHead>
               <TableHead>
                 Weight limit covered by{" "}
                 {service.type === "Satchel" ? "satchel" : "label"} (Kg)
