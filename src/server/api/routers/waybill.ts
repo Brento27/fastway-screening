@@ -1,9 +1,8 @@
-import { z } from "zod";
-
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { env } from "@/env";
 import { TRPCError } from "@trpc/server";
 import { ParcelData } from "@/Types/Parcel";
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { waybillSchema } from "@/validation/waybill";
 
 export const waybillRouter = createTRPCRouter({

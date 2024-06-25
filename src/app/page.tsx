@@ -2,6 +2,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { api } from "@/trpc/react";
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { waybillSchema } from "@/validation/waybill";
 import { z } from "zod";
 import { Button } from "@/app/_components/ui/button";
@@ -15,13 +16,10 @@ import {
   FormMessage,
 } from "@/app/_components/ui/form";
 import { Input } from "@/app/_components/ui/input";
-import { ScannedWaybillDataCard } from "./_components/ui/custom/ScannedWaybillDataCard";
 import { useToast } from "./_components/ui/use-toast";
 import { Toaster } from "./_components/ui/toaster";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { Skeleton } from "./_components/ui/skeleton";
-import { motion } from "framer-motion";
 import { Suspense } from "react";
 import ParcelDataLoader from "./_components/ui/custom/ParcelDataLoader";
 import ParcelDataCardList from "./_components/ui/custom/ParcelDataCardList";

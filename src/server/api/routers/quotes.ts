@@ -8,5 +8,7 @@ import { ParcelData } from "@/Types/Parcel";
 export const quoteRouter = createTRPCRouter({
   getQuote: publicProcedure
     .input(z.object({ waybill: z.string() }))
-    .mutation(async ({ input }) => {}),
+    .mutation(async ({ input }) => {
+      return "OK";
+    }),
 });

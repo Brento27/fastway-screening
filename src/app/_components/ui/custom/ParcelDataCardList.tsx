@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ScannedWaybillDataCard } from "./ScannedWaybillDataCard";
-import { ParcelData } from "@/Types/Parcel";
+import { type ParcelData } from "@/Types/Parcel";
 
 const ParcelDataCardList = ({
   data,
