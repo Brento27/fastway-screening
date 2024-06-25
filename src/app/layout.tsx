@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 
 import { TRPCReactProvider } from "@/trpc/react";
+import Navigation from "./_components/ui/custom/Nav";
 
 export const metadata = {
   title: "Fastway Screening",
@@ -17,7 +18,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body>
+      <body className="min-h-screen bg-black">
+        <Navigation />
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>
     </html>

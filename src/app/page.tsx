@@ -69,10 +69,13 @@ const Home = () => {
   return (
     <>
       <Toaster />
-      <main className="flex min-h-screen flex-col items-center bg-black px-4 py-12 sm:px-6 lg:flex-row lg:items-start lg:justify-between lg:px-32 lg:py-16">
+      <main className="flex flex-col items-center gap-8  px-4 py-12 sm:px-6 lg:flex-row lg:items-start lg:justify-between lg:px-20 lg:py-16">
         <div className="">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="flex w-80 gap-4 space-y-8 md:w-96 lg:w-[380px]"
+            >
               <FormField
                 control={form.control}
                 name="waybill"
@@ -83,7 +86,7 @@ const Home = () => {
                       <Input
                         placeholder="Tracking Number"
                         {...field}
-                        className="w-96 "
+                        className="w-56 md:w-72 lg:w-96 "
                       />
                     </FormControl>
                     <FormDescription>
@@ -105,17 +108,17 @@ const Home = () => {
         <div className=" mt-4 flex flex-col gap-4">
           {isPending ? (
             <>
-              <Skeleton className="h-36 w-[380px] bg-slate-300" />
-              <Skeleton className="h-36 w-[380px] bg-slate-300" />
-              <Skeleton className="h-36 w-[380px] bg-slate-300" />
-              <Skeleton className="h-36 w-[380px] bg-slate-300" />
+              <Skeleton className="h-36 w-80  bg-slate-300 md:w-96 lg:w-[380px]" />
+              <Skeleton className="h-36 w-80 bg-slate-300 md:w-96 lg:w-[380px]" />
+              <Skeleton className="h-36 w-80 bg-slate-300 md:w-96 lg:w-[380px]" />
+              <Skeleton className="h-36 w-80 bg-slate-300 md:w-96 lg:w-[380px]" />
             </>
           ) : isFetching && searchParams.get("waybill") ? (
             <>
-              <Skeleton className="h-36 w-[380px] bg-slate-300" />
-              <Skeleton className="h-36 w-[380px] bg-slate-300" />
-              <Skeleton className="h-36 w-[380px] bg-slate-300" />
-              <Skeleton className="h-36 w-[380px] bg-slate-300" />
+              <Skeleton className="h-36 w-80 bg-slate-300 md:w-96 lg:w-[380px]" />
+              <Skeleton className="h-36 w-80 bg-slate-300 md:w-96 lg:w-[380px]" />
+              <Skeleton className="h-36 w-80 bg-slate-300 md:w-96 lg:w-[380px]" />
+              <Skeleton className="h-36 w-80 bg-slate-300 md:w-96 lg:w-[380px]" />
             </>
           ) : data ? (
             waybillQueryData?.map((scan, i) => {
