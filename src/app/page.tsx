@@ -34,7 +34,7 @@ const Home = () => {
 
   const { data: waybillQueryData, isFetching } =
     api.waybill.getWaybillFromParams.useQuery({
-      waybill: searchParams.get("waybill") ?? "",
+      waybill: searchParams.get("waybill") ?? undefined,
     });
 
   // 1. Define your form.
@@ -100,7 +100,14 @@ const Home = () => {
           </Form>
         </div>
         <div className=" mt-4 flex flex-col gap-4">
-          {isFetching || isPending ? (
+          {isPending ? (
+            <>
+              <Skeleton className="h-36 w-[380px] bg-slate-300" />
+              <Skeleton className="h-36 w-[380px] bg-slate-300" />
+              <Skeleton className="h-36 w-[380px] bg-slate-300" />
+              <Skeleton className="h-36 w-[380px] bg-slate-300" />
+            </>
+          ) : isFetching && searchParams.get("waybill") ? (
             <>
               <Skeleton className="h-36 w-[380px] bg-slate-300" />
               <Skeleton className="h-36 w-[380px] bg-slate-300" />

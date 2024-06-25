@@ -75,8 +75,14 @@ export const waybillRouter = createTRPCRouter({
       }
     }),
   getWaybillFromParams: publicProcedure
-    .input(z.object({ waybill: z.string() }))
+    .input(z.object({ waybill: z.string().optional() }))
     .query(async ({ input }) => {
+      if (!input.waybill) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Waybill is required",
+        });
+      }
       try {
         const res = await fetch(
           `${env.API_URL}/latest/tracktrace/detail/${input.waybill}?api_key=${env.API_KEY}`,
