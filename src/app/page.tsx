@@ -93,7 +93,10 @@ const Home = () => {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="bg-white text-black">
+              <Button
+                type="submit"
+                className="bg-white text-black hover:bg-slate-300"
+              >
                 Track
               </Button>
             </form>
