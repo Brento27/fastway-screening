@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ScannedWaybillDataCard } from "./ScannedWaybillDataCard";
-import { ParcelData } from "@/server/api/routers/waybill";
+import { ParcelData } from "@/Types/Parcel";
 
 const ParcelDataCardList = ({
   data,
@@ -12,7 +12,9 @@ const ParcelDataCardList = ({
 }) => {
   return (
     <>
-      <h2 className="text-2xl font-bold text-white">Result for {waybill}</h2>
+      <h2 className={`text-2xl font-bold text-white ${data ? "" : "hidden"}`}>
+        Result for {waybill}
+      </h2>
       {data?.map((scan, i) => {
         return (
           <>

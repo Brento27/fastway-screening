@@ -36,7 +36,7 @@ const Home = () => {
 
   const { data: waybillQueryData, isFetching } =
     api.waybill.getWaybillFromParams.useQuery({
-      waybill: searchParams.get("waybill") ?? undefined,
+      waybill: searchParams.get("waybill") ?? "",
     });
 
   // 1. Define your form.

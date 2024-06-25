@@ -3,40 +3,12 @@ import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { env } from "@/env";
 import { TRPCError } from "@trpc/server";
-
-interface CompanyInfo {
-  contactName: string;
-  company: string;
-  address1: string;
-  address2: string;
-  address3: string;
-  address4: string;
-  address5: string;
-  address6: string;
-  address7: string;
-  address8: string;
-  comment: string;
-}
-
-export interface ParcelData {
-  Type: string;
-  Courier: string;
-  Description: string;
-  Date: string;
-  RealDateTime: string;
-  Name: string;
-  Franchise: string;
-  Status: string;
-  StatusDescription: string;
-  CompanyInfo: CompanyInfo;
-  UploadDate: string;
-  Signature: string;
-  ParcelConnectAgent: string | null; // Assuming this can be any type or null
-}
+import { ParcelData } from "@/Types/Parcel";
+import { waybillSchema } from "@/validation/waybill";
 
 export const waybillRouter = createTRPCRouter({
   getWaybill: publicProcedure
-    .input(z.object({ waybill: z.string() }))
+    .input(waybillSchema)
     .mutation(async ({ input }) => {
       try {
         const res = await fetch(
@@ -75,7 +47,7 @@ export const waybillRouter = createTRPCRouter({
       }
     }),
   getWaybillFromParams: publicProcedure
-    .input(z.object({ waybill: z.string().optional() }))
+    .input(waybillSchema)
     .query(async ({ input }) => {
       if (!input.waybill) {
         throw new TRPCError({
