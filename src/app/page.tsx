@@ -22,17 +22,19 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "./_components/ui/skeleton";
 import { motion } from "framer-motion";
+import { Suspense } from "react";
 
-export default function Home() {
+const Home = () => {
   const { toast } = useToast();
 
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  // eslint-disable-next-line
   const { replace } = useRouter();
 
   const { data: waybillQueryData, isFetching } =
     api.waybill.getWaybillFromParams.useQuery({
-      waybill: searchParams.get("waybill") || "",
+      waybill: searchParams.get("waybill") ?? "",
     });
 
   // 1. Define your form.
@@ -109,6 +111,7 @@ export default function Home() {
             waybillQueryData?.map((scan, i) => {
               return (
                 <motion.div
+                  key={i}
                   initial={{ opacity: 0, translateX: -150 }}
                   animate={{ opacity: 1, translateX: 0 }}
                   transition={{ duration: 0.3, delay: i * 0.2 }}
@@ -127,6 +130,7 @@ export default function Home() {
             waybillQueryData?.map((scan, i) => {
               return (
                 <motion.div
+                  key={i}
                   initial={{ opacity: 0, translateX: -150 }}
                   animate={{ opacity: 1, translateX: 0 }}
                   transition={{ duration: 0.3, delay: i * 0.2 }}
@@ -145,5 +149,14 @@ export default function Home() {
         </div>
       </main>
     </>
+  );
+};
+
+// Wrap Home component with Suspense for the dynamic import
+export default function PageWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Home />
+    </Suspense>
   );
 }
