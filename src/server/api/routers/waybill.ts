@@ -74,4 +74,43 @@ export const waybillRouter = createTRPCRouter({
         });
       }
     }),
+  getWaybillFromParams: publicProcedure
+    .input(z.object({ waybill: z.string() }))
+    .query(async ({ input }) => {
+      try {
+        const res = await fetch(
+          `${env.API_URL}/latest/tracktrace/detail/${input.waybill}?api_key=${env.API_KEY}`,
+        );
+
+        if (!res.ok) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: `Failed to fetch data: ${res.statusText}`,
+          });
+        }
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const parcelData = await res.json();
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        if (parcelData?.error) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            // eslint-disable-next-line
+            message: parcelData?.error,
+          });
+        }
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        return parcelData?.result?.Scans as ParcelData[];
+      } catch (error) {
+        if (error instanceof TRPCError) {
+          throw error;
+        }
+
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "An unexpected error occurred",
+        });
+      }
+    }),
 });
