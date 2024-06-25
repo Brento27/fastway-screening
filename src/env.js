@@ -10,6 +10,9 @@ export const env = createEnv({
     NODE_ENV: z.enum(["development", "test", "production"]),
     API_URL: z.string(),
     API_KEY: z.string(),
+    API_COUNTRY_CODE: z.string(),
+    API_FRANCHISE_CODE: z.string(),
+    LOCATION_API_URL: z.string(),
   },
 
   /**
@@ -29,6 +32,9 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     API_URL: process.env.API_URL,
     API_KEY: process.env.API_KEY,
+    API_COUNTRY_CODE: process.env.API_COUNTRY_CODE,
+    API_FRANCHISE_CODE: process.env.API_FRANCHISE_CODE,
+    LOCATION_API_URL: process.env.LOCATION_API_URL,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**

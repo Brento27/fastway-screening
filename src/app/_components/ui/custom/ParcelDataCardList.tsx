@@ -17,7 +17,7 @@ const ParcelDataCardList = ({
       </h2>
       {data?.map((scan, i) => {
         return (
-          <>
+          <div key={i}>
             <motion.div
               key={i}
               initial={{ opacity: 0, translateX: -150 }}
@@ -32,7 +32,7 @@ const ParcelDataCardList = ({
                 location={scan.Name}
               />
             </motion.div>
-          </>
+          </div>
         );
       })}
     </>

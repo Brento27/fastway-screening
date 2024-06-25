@@ -48,7 +48,12 @@ export function ScannedWaybillDataCard({
   location: string;
 }) {
   return (
-    <Card className={cn("w-80 md:w-96 lg:w-[380px]")}>
+    <Card
+      className={cn(
+        "w-80 md:w-96 lg:w-[380px]",
+        "shadow-2xl shadow-orange-600",
+      )}
+    >
       <CardHeader>
         <CardTitle>{getTypeDescription(scanType)}</CardTitle>
         <CardDescription>{description}</CardDescription>

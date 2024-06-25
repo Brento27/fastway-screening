@@ -14,7 +14,8 @@ import {
 
 export default function Navigation() {
   return (
-    <div className="flex flex-col items-center">
+    <div className="relative flex flex-col items-center">
+      <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-pink-600 to-blue-700 blur-2xl"></div>
       <NavigationMenu className="p-4">
         <NavigationMenuList className="gap-6">
           <NavigationMenuItem>

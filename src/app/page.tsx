@@ -87,7 +87,7 @@ const Home = () => {
                       <Input
                         placeholder="Tracking Number"
                         {...field}
-                        className="w-56 bg-white md:w-72 lg:w-96"
+                        className="w-56 md:w-72 lg:w-96"
                       />
                     </FormControl>
                     <FormDescription>

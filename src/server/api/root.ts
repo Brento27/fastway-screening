@@ -1,5 +1,6 @@
 import { waybillRouter } from "@/server/api/routers/waybill";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
+import { quoteRouter } from "./routers/quotes";
 
 /**
  * This is the primary router for your server.
@@ -8,6 +9,7 @@ import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
   waybill: waybillRouter,
+  quotes: quoteRouter,
 });
 
 // export type definition of API
