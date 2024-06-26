@@ -33,23 +33,18 @@ import {
   CommandList,
 } from "../_components/ui/command";
 import { cn } from "@/lib/utils";
-import { LocationData } from "@/Types/Location";
 import useDebounce from "@/hooks/debounce";
 import { Input } from "../_components/ui/input";
 import { Skeleton } from "../_components/ui/skeleton";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../_components/ui/card";
 import QuoteDetails from "../_components/ui/custom/QuoteDetails";
 import Service from "../_components/ui/custom/Service";
 import { Toaster } from "../_components/ui/toaster";
 
 const Quotes = () => {
+  // Tracks the open state of the location search dropdown
   const [open, setOpen] = useState(false);
+
+  // Mutation to get location data
   const {
     mutate: getLocation,
     isPending: loadingTowns,
@@ -77,9 +72,13 @@ const Quotes = () => {
     },
   });
 
+  // Access form values
   const formValues = form.watch();
-  const debouncedSendingToTown = useDebounce(formValues.sendingToTown, 1000); // Debounce for 1 second
 
+  // Debounce for 1 second - Location search
+  const debouncedSendingToTown = useDebounce(formValues.sendingToTown, 1000);
+
+  // Mutation to get quote
   const {
     data: quoteData,
     mutate: getQuote,
@@ -107,12 +106,14 @@ const Quotes = () => {
     getQuote(values);
   };
 
+  // Tracks the length of the town input to search for location
   useEffect(() => {
     if (debouncedSendingToTown.length >= 3) {
       getLocation({ town: debouncedSendingToTown });
     }
   }, [debouncedSendingToTown]);
 
+  // Render the component
   return (
     <>
       <div className="relative mx-4 p-8">

@@ -27,3 +27,16 @@ You can check out the [create-t3-app GitHub repository](https://github.com/t3-os
 ## How do I deploy this?
 
 Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+
+1. Make sure you have node installed. I used node v20.12.2
+2. Open up the source code and create a .env file in the root directory
+3. Make sure to have the following variables setup in the .env
+   API_URL="https://sa.api.fastway.org"
+   API_KEY="9f57d11554c24fb8f03a4875f513ce9f"
+   API_COUNTRY_CODE="24"
+   API_FRANCHISE_CODE="JNB"
+   LOCATION_API_URL ="https://www.fastway.co.za/Umbraco/Api/Address/Locator/?RFCode=GRJ"
+4. Next open a terminal and navigate to the projects source code directory
+5. Run the following command in the terminal "npm run install"
+6. Now in the same terminal you can run "npm run dev"
+7. Now you should be able to access the running app at "http://localhost:3000"

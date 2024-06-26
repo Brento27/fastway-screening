@@ -16,8 +16,10 @@ export const quoteRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
+        // Fetch location data from the LOCATION_API_URL
         const res = await fetch(`${env.LOCATION_API_URL}&term=${input.town}`);
 
+        // Check if the request was successful
         if (!res.ok) {
           throw new TRPCError({
             code: "BAD_REQUEST",
@@ -59,36 +61,19 @@ export const quoteRouter = createTRPCRouter({
     .input(QuotePriceCalculationSchema)
     .mutation(async ({ input }) => {
       try {
-        // const res = await fetch(
-        //   `${env.API_URL}/latest/psc/pickuprf/${input.postcode}/${env.API_COUNTRY_CODE}?api_key=${env.API_KEY}`,
-        // );
-
-        // if (!res.ok) {
-        //   throw new TRPCError({
-        //     code: "BAD_REQUEST",
-        //     message: `Failed to fetch data: ${res.statusText}`,
-        //   });
-        // }
-
-        // const data = await res.json();
-
-        // if (data.error) {
-        //   throw new TRPCError({
-        //     code: "INTERNAL_SERVER_ERROR",
-        //     message: data.error,
-        //   });
-        // }
-
         let dimensions = "";
 
+        // Check if length, width, and height are provided in the input and create dimensions string
         if (input.length && input.width && input.height) {
           dimensions = `&LengthInCm=${input.length}&WidthInCm=${input.width}&HeightInCm=${input.height}`;
         }
 
+        // Fetch quote data from the API
         const quoteRes = await fetch(
           `${env.API_URL}/latest/psc/lookup/${env.API_FRANCHISE_CODE}/${input.sendingToTown}/${input.postcode}?WeightInKg=${input.weight}${dimensions}&api_key=${env.API_KEY}`,
         );
 
+        // Check if the request was successful
         if (!quoteRes.ok) {
           throw new TRPCError({
             code: "BAD_REQUEST",
@@ -96,8 +81,10 @@ export const quoteRouter = createTRPCRouter({
           });
         }
 
+        // Parse the JSON response
         const quoteData = await quoteRes.json();
 
+        // Check if an error occurred
         if (quoteData.error) {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
@@ -105,8 +92,7 @@ export const quoteRouter = createTRPCRouter({
           });
         }
 
-        console.log(quoteData.result);
-
+        // Return the quote data
         return quoteData.result as QuoteDetails;
       } catch (error) {
         if (error instanceof TRPCError) {

@@ -27,17 +27,22 @@ import ParcelDataCardList from "./_components/ui/custom/ParcelDataCardList";
 const Home = () => {
   const { toast } = useToast();
 
+  // Get the search params from the URL
   const searchParams = useSearchParams();
+
+  // Get the pathname from the URL
   const pathname = usePathname();
+
   // eslint-disable-next-line
   const { replace } = useRouter();
 
+  // Query to get waybill data from the URL on load
   const { data: waybillQueryData, isFetching } =
     api.waybill.getWaybillFromParams.useQuery({
       waybill: searchParams.get("waybill") ?? "",
     });
 
-  // 1. Define your form.
+  // Define your form.
   const form = useForm<z.infer<typeof waybillSchema>>({
     resolver: zodResolver(waybillSchema),
     defaultValues: {
@@ -45,7 +50,10 @@ const Home = () => {
     },
   });
 
+  // Access form values
   const formValues = form.watch();
+
+  // Mutation to get waybill data
   const { data, isPending, mutate } = api.waybill.getWaybill.useMutation({
     onSuccess: () => {
       console.log("success");
@@ -59,7 +67,7 @@ const Home = () => {
     },
   });
 
-  // 2. Define a submit handler.
+  // Define a submit handler.
   function onSubmit(values: z.infer<typeof waybillSchema>) {
     const params = new URLSearchParams(searchParams);
     params.set("waybill", values.waybill);
@@ -67,6 +75,7 @@ const Home = () => {
     mutate({ waybill: values.waybill });
   }
 
+  // Render the component
   return (
     <>
       <Toaster />
